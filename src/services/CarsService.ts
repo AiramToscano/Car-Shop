@@ -22,9 +22,25 @@ class FrameService implements IService<ICar> {
   }
 
   public async readOne(_id:string):Promise<ICar> {
-    const frame = await this._car.readOne(_id);
-    if (!frame) throw new Error(ErrorTypes.EntityNotFound);
-    return frame;
+    const result = await this._car.readOne(_id);
+    if (!result) throw new Error(ErrorTypes.EntityNotFound);
+    return result;
+  }
+
+  public async update(_id:string, obj:ICar):Promise<ICar | null> {
+    const parsed = ICarZodSchema.safeParse(obj);
+    if (!parsed.success) {
+      throw parsed.error;
+    }
+    await this.readOne(_id);
+    const result = await this._car.update(_id, obj);
+    return result;
+  }
+
+  public async delete(_id:string):Promise<ICar | null> {
+    await this.readOne(_id);
+    const result = await this._car.delete(_id);
+    return result;
   }
 }
 
