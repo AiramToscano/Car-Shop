@@ -6,6 +6,8 @@ import {
 	CarMock,
 	CarMockWithId,
 	allcarMock,
+	CarMockChangeWithId,
+	CarMockChange,
 } from '../../mocks/CarMoks';
 
 describe('Car Model', () => {
@@ -16,6 +18,7 @@ describe('Car Model', () => {
 		sinon.stub(Model, 'findOne').resolves(CarMockWithId);
 		sinon.stub(Model, 'find').resolves(allcarMock);
 		sinon.stub(Model, 'findByIdAndRemove').resolves(CarMockWithId);
+		sinon.stub(Model, 'findByIdAndUpdate').resolves(CarMockChangeWithId);
 	});
 
 	after(() => {
@@ -60,6 +63,21 @@ describe('Car Model', () => {
 		it('_id not found to remove', async () => {
 			try {
 				await carModel.delete('123ERRADO');
+			} catch (error: any) {
+				expect(error.message).to.be.eq('InvalidMongoId');
+			}
+		});
+	});
+
+	describe('changing a car', () => {
+		it('successfully changed', async () => {
+			const carChanged = await carModel.update('62cf1fc6498565d94eba52cd', CarMockChange);
+			expect(carChanged).to.be.deep.equal(CarMockChangeWithId);
+		});
+
+		it('_id not found to change', async () => {
+			try {
+				await carModel.update('123ERRADO', CarMockChange);
 			} catch (error: any) {
 				expect(error.message).to.be.eq('InvalidMongoId');
 			}
