@@ -31,4 +31,23 @@ export default class FrameController {
     const result = await this._service.readOne(id);
     return res.status(200).json(result);
   }
+
+  public async update(
+    req: Request, 
+    res: Response<ICar | null>,
+  ) {
+    const { id } = req.params;    
+    const result = await this._service.update(id, req.body);
+    console.log(result);
+    return res.status(200).json(result);
+  }
+
+  public async delete(
+    req: Request, 
+    res: Response<ICar | null>,
+  ) {
+    const { id } = req.params;    
+    await this._service.delete(id);
+    return res.status(204).end();
+  }
 }
