@@ -10,8 +10,25 @@ export default class FrameController {
     res: Response<ICar>,
   ) {
     const { model, year, color, buyValue, seatsQty, doorsQty } = req.body;
-    const frame = { model, year, color, buyValue, seatsQty, doorsQty };
-    const results = await this._service.create(frame);
+    const car = { model, year, color, buyValue, seatsQty, doorsQty };
+    const results = await this._service.create(car);
     return res.status(201).json(results);
+  }
+
+  public async read(
+    _req: Request & { body: ICar }, 
+    res: Response<ICar[]>,
+  ) {
+    const results = await this._service.read();
+    return res.status(200).json(results);
+  }
+
+  public async readOne(
+    req: Request,
+    res: Response<ICar>,
+  ) {
+    const { id } = req.params;
+    const result = await this._service.readOne(id);
+    return res.status(200).json(result);
   }
 }
