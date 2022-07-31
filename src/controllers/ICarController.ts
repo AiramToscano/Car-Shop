@@ -38,7 +38,6 @@ export default class FrameController {
   ) {
     const { id } = req.params;    
     const result = await this._service.update(id, req.body);
-    console.log(result);
     return res.status(200).json(result);
   }
 
@@ -48,6 +47,6 @@ export default class FrameController {
   ) {
     const { id } = req.params;    
     await this._service.delete(id);
-    return res.status(204).end();
+    return res.status(204).json();
   }
 }
