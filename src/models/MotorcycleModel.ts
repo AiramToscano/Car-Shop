@@ -9,7 +9,7 @@ const frameMongooseSchema = new Schema<IMotorcycle>({
   buyValue: Number,
   category: String,
   engineCapacity: Number,
-});
+}, { versionKey: false });
 
 class Car extends MongoModel<IMotorcycle> {
   constructor(model = mongooseCreateModel('Motorcycle', frameMongooseSchema)) {
