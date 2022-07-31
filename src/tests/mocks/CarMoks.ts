@@ -18,6 +18,15 @@ const CarMockChange: ICar = {
     doorsQty: 2
 };
 
+const CarMockError: ICar = {
+    model: "",
+    year: 0,
+    color: "blue",
+    buyValue: 3500000,
+    seatsQty: 0,
+    doorsQty: 2
+};
+
 const CarMockWithId: ICar & { _id: string } = {
 	_id: '62cf1fc6498565d94eba52cd',
     model: "Ferrari Maranello",
@@ -64,5 +73,6 @@ export {
   CarMockWithId,
   allcarMock,
   CarMockChangeWithId,
-  CarMockChange
+  CarMockChange,
+  CarMockError
 }
