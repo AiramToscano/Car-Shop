@@ -1,23 +1,33 @@
 import { Request, Response } from 'express';
 import IService from '../interfaces/IService';
-import { ICar } from '../interfaces/ICar';
+import { IMotorcycle } from '../interfaces/IMotorcycle';
 
 export default class CarController {
-  constructor(private _service: IService<ICar>) { }
+  constructor(private _service: IService<IMotorcycle>) { }
 
   public async create(
-    req: Request & { body: ICar }, 
-    res: Response<ICar>,
+    req: Request & { body: IMotorcycle }, 
+    res: Response<IMotorcycle>,
   ) {
-    const { model, year, color, buyValue, seatsQty, doorsQty } = req.body;
-    const car = { model, year, color, buyValue, seatsQty, doorsQty };
+    const { model,
+      year, color,
+      buyValue, seatsQty, doorsQty, category, engineCapacity } = req.body;
+    const car = { model,
+      year,
+      color,
+      buyValue,
+      seatsQty,
+      doorsQty,
+      category,
+      engineCapacity,
+    };
     const results = await this._service.create(car);
     return res.status(201).json(results);
   }
 
   public async read(
-    _req: Request & { body: ICar }, 
-    res: Response<ICar[]>,
+    _req: Request & { body: IMotorcycle }, 
+    res: Response<IMotorcycle[]>,
   ) {
     const results = await this._service.read();
     return res.status(200).json(results);
@@ -25,7 +35,7 @@ export default class CarController {
 
   public async readOne(
     req: Request,
-    res: Response<ICar>,
+    res: Response<IMotorcycle>,
   ) {
     const { id } = req.params;
     const result = await this._service.readOne(id);
@@ -34,7 +44,7 @@ export default class CarController {
 
   public async update(
     req: Request, 
-    res: Response<ICar | null>,
+    res: Response<IMotorcycle | null>,
   ) {
     const { id } = req.params;    
     const result = await this._service.update(id, req.body);
@@ -43,7 +53,7 @@ export default class CarController {
 
   public async delete(
     req: Request, 
-    res: Response<ICar | null>,
+    res: Response<IMotorcycle | null>,
   ) {
     const { id } = req.params;    
     await this._service.delete(id);
