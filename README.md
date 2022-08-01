@@ -26,7 +26,7 @@ Uma criação de uma API de Car Shop utilizando mongoDB.
 ---
 
 ### Para utilizar o projeto :
-- `git@github.com:AiramToscano/Car-Shop.git`
+- `git clone git@github.com:AiramToscano/Car-Shop.git`
 - `npm install`
 - `docker-compose up -d` - Com esse comando irá subir o docker do MongoDB, node version 16.
 
